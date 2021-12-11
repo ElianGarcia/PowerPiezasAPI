@@ -1,0 +1,4 @@
+﻿SQL SERVER
+SERVER NAME: SQL5104.site4now.net
+LOGIN: db_a73bd3_powerpieza_admin
+PASSWORD: db_a73bd3_p0w3r
