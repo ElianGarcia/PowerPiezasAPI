@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PowerPiezasAPI.Models
 {
-    public class Marcas
+    public class Areas
     {
         public Int64 Id { get; set; }
         public string Nombre { get; set; }

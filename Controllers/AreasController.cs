@@ -13,42 +13,42 @@ namespace PowerPiezasAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MarcasController : ControllerBase
+    public class AreasController : ControllerBase
     {
         private readonly IRepositorio _repositorio;
         protected string Campos, Tabla;
 
-        public MarcasController(IRepositorio repositorio)
+        public AreasController(IRepositorio repositorio)
         {
             _repositorio = repositorio;
             Campos = "ID, Nombre, Activo";
-            Tabla = "Marcas";
+            Tabla = "Areas";
         }
 
         [HttpGet(nameof(Get))]
-        public async Task<IEnumerable<Marcas>> Get()
+        public async Task<IEnumerable<Areas>> Get()
         {
-            var result = await Task.FromResult(_repositorio.GetAll<Marcas>($"SELECT {Campos} FROM Marcas WHERE Activo = 1", null, commandType: CommandType.Text));
+            var result = await Task.FromResult(_repositorio.GetAll<Areas>($"SELECT {Campos} FROM Areas WHERE Activo = 1", null, commandType: CommandType.Text));
             return result;
         }
-        
+
         [HttpPost(nameof(Create))]
-        public async Task<Int64> Create(Marcas marca)
+        public async Task<Int64> Create(Areas marca)
         {
             var parameters = new DynamicParameters();
             parameters.Add("Nombre", marca.Nombre);
             parameters.Add("Activo", marca.Activo);
 
             var result = await Task.FromResult(
-                _repositorio.Insert<Int64>($"INSERT INTO Marcas({Campos.Replace("ID,", "")}) VALUES (@{Campos.Replace("ID,", "").Replace(" ", "").Replace(",", ",@")});" +
-                $"SELECT ISNULL(SCOPE_IDENTITY(), 0);", 
-                parameters, 
+                _repositorio.Insert<Int64>($"INSERT INTO Areas({Campos.Replace("ID,", "")}) VALUES (@{Campos.Replace("ID,", "").Replace(" ", "").Replace(",", ",@")});" +
+                $"SELECT ISNULL(SCOPE_IDENTITY(), 0);",
+                parameters,
                 commandType: CommandType.Text));
             return result;
         }
-        
+
         [HttpPut(nameof(Update))]
-        public async Task<Int64> Update(Marcas marca)
+        public async Task<Int64> Update(Areas marca)
         {
             var parameters = new DynamicParameters();
             parameters.Add("ID", marca.Id);
@@ -56,7 +56,7 @@ namespace PowerPiezasAPI.Controllers
             parameters.Add("Activo", marca.Activo);
 
             var result = await Task.FromResult(
-                _repositorio.Insert<Int64>($"UPDATE Marcas " +
+                _repositorio.Insert<Int64>($"UPDATE Areas " +
                 $"SET Nombre = @Nombre, " +
                 $"Activo = @Activo " +
                 $"WHERE ID = @ID;" +
